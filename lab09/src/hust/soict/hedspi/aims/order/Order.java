@@ -17,6 +17,10 @@ public class Order {
 	private MyDate dateOrdered = new MyDate();
 	private static int nbOrders = 0;
 	
+	public ArrayList<Media> getItemsOrderedList() {
+		return (ArrayList<Media>) itemsOrdered;
+	}
+
 	public static int getNbOrders() {
 		return nbOrders;
 	}
@@ -59,7 +63,7 @@ public class Order {
 		}
 		return total;
 	}
-	
+
 	public Media searchMedia(String title) {
 		for (Media item : itemsOrdered) {
 			if (item.getTitle().equals(title)) {
@@ -67,6 +71,16 @@ public class Order {
 			}
 		}
 		return null;
+	}
+
+	public List<String> getTitleList() {
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < itemsOrdered.size(); i++) {
+			if (itemsOrdered.get(i) != null) {
+				list.add(itemsOrdered.get(i).getTitle());
+			}
+		}
+		return list;
 	}
 
 	public void print() {
@@ -80,22 +94,21 @@ public class Order {
 				if (item instanceof DigitalVideoDisc) {
 					System.out.print("DVD");
 					System.out.printf(" - %s - %s - ", item.getTitle(), item.getCategory());
-					System.out.print(((DigitalVideoDisc)item).getDirector() + " - "
-							+ ((DigitalVideoDisc)item).getLength());
+					System.out.print(
+							((DigitalVideoDisc) item).getDirector() + " - " + ((DigitalVideoDisc) item).getLength());
 				}
 				if (item instanceof Book) {
 					System.out.print("Book");
 					System.out.printf(" - %s - %s - ", item.getTitle(), item.getCategory());
-					System.out.print(((Book)item).getAuthors());
+					System.out.print(((Book) item).getAuthors());
 				}
 				if (item instanceof CompactDisc) {
 					System.out.print("CD");
 					System.out.printf(" - %s - %s - ", item.getTitle(), item.getCategory());
-					System.out.print(((CompactDisc)item).getArtist() + " - "
-							+ ((CompactDisc)item).getLength());
+					System.out.print(((CompactDisc) item).getArtist() + " - " + ((CompactDisc) item).getLength());
 				}
 				System.out.println(" : " + item.getCost());
-						
+
 				total += item.getCost();
 			} else {
 				break;
@@ -115,7 +128,7 @@ public class Order {
 	public Order() {
 		if (nbOrders < MAX_LIMITTED_ORDERS) {
 			this.dateOrdered = new MyDate();
-			nbOrders += 1; 
+			nbOrders += 1;
 		}
 	}
 

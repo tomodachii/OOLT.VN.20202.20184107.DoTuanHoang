@@ -3,8 +3,9 @@ package hust.soict.hedspi.aims.media;
 public abstract class Media<T> implements Comparable<T> {
 	protected String title;
 	protected String category;
-	protected float cost;
+	protected Float cost;
 	protected Integer id;
+	protected String type = getType();
 
 	public String getTitle() {
 		return title;
@@ -55,13 +56,13 @@ public abstract class Media<T> implements Comparable<T> {
 		this.cost = cost;
 	}
 	
-	public boolean equals(Object o) {
-		if (o instanceof Media) {
-			Media m = (Media) o;
-			return (this.getId().equals(m.getId()));
-		}
-		return false;
-	}
+//	public boolean equals(Object o) {
+//		if (o instanceof Media) {
+//			Media m = (Media) o;
+//			return (this.getId().equals(m.getId()));
+//		}
+//		return false;
+//	}
 	
 	public int compareTo(T o) {
 		if (o instanceof Media) {
@@ -69,6 +70,18 @@ public abstract class Media<T> implements Comparable<T> {
 			return this.getTitle().compareTo(m.getTitle());
 		}
 		return -99999;
+	}
+	
+	public String getType() {
+		if (this instanceof Book) {
+			return "Book";
+		} else if (this instanceof DigitalVideoDisc) {
+			return "DVD";
+		} else if (this instanceof CompactDisc){
+			return "CD";
+		} else {
+			return null;
+		}
 	}
 	
 }

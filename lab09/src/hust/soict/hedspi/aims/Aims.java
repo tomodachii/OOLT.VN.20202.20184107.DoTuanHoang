@@ -1,8 +1,5 @@
 package hust.soict.hedspi.aims;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
 
 //import com.sun.tools.classfile.StackMapTable_attribute.chop_frame;
 
@@ -10,11 +7,31 @@ import hust.soict.hedspi.aims.media.Book;
 import hust.soict.hedspi.aims.media.CompactDisc;
 import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Track;
 import hust.soict.hedspi.aims.order.Order;
 
 public class Aims {
 	
-	public static void showMenu() {
+	private static Order createExampleOrder() {
+		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", 19.95f, 87, "Roger Allers");
+		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Java world", "Codeventure", 69.96f, 90, "Mad Demon");
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("A beautiful hello World", "Science Fiction", 90.9f, 89, "Peter Scripter");
+		
+		Book book1 = new Book("Nightmare", "Chemical periodic table", 100.0f, "Dmitri Ivanovich Mendeleev");
+		Book book2 = new Book("Fiction", "Doraemon", 20.05f, "Fujiko F. Fujio");
+		
+		Track track1 = new Track("Hello", 12);
+		Track track2 = new Track("Send my love", 10);
+		Track track3 = new Track("Someone like you", 8);
+		Track track4 = new Track("All i ask", 21);
+		Track track5 = new Track("Skyfall", 15);
+		
+		CompactDisc album1 = new CompactDisc("Depression", "Classic", 245.55f, "Adele",track1, track2, track3, track4, track5);
+		Order order = new Order();
+		order.addMedia(dvd1, dvd2, dvd3, book1, book2, album1);
+		return order;
+	}
+		public static void showMenu() {
 		System.out.println("Order Management Application: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. Create new order");
@@ -27,114 +44,97 @@ public class Aims {
 	}
 
 	public static void main(String[] args) {
-//		Scanner scanner = new Scanner(System.in);
-//		boolean flag = false;
-//		
-//		Order order = new Order();
-//		showMenu();
-//		int c;
-//		do {
-//			c = scanner.nextInt();
-//			scanner.nextLine();
-//			switch (c) {
-//			case 0: {
-//				order = new Order();
-//				System.out.println("Good bye !!");
-//				System.exit(1);
-//				break;
-//			}
-//			case 1: {
-//				System.out.println("Sucessfully created new order!");
-//				flag = true;
-//				break;
-//			}
-//			case 2: {
-//				if (!flag) {
-//					System.out.println("Please create a new order first!");
-//					break;
-//				}
-//				int m = 0;
-//				do {
-//					System.out.println("Please choose media format:");
-//					System.out.println("1. Book");
-//					System.out.println("2. DVD");
-//					System.out.println("3. CD");
-//					m = scanner.nextInt();
-//					scanner.nextLine();
-//				} while (m > 0 && m < 4 );
-//				
-//				System.out.println("Enter title: ");
-//				String title = scanner.nextLine();
-//				System.out.println("Enter category: ");
-//				String category = scanner.nextLine();
-//				System.out.println("Enter cost:");
-//				float cost = scanner.nextFloat();
-//				scanner.nextLine();
-//				if (m == 1) {
-//					System.out.println("Enter author's name:");
-//					List<String> authors = new ArrayList<String>();
-//					String authorName = scanner.nextLine();
-//					authors.add(authorName);
-//					Book book = new Book(title, category, cost, authors);
-//					order.addMedia(book);
-//				} else if (m == 2 || m == 3) {
-//					if (m == 2) {
-//						System.out.println("Enter director:");
-//						String director = scanner.nextLine();
-//						System.out.println("Enter length:");
-//						int lenth = scanner.nextInt();
-//						scanner.nextLine();
-//						DigitalVideoDisc dvd = new DigitalVideoDisc(title, category, cost, lenth, director);
-//						order.addMedia(dvd);
-//					} else {
-//						CompactDisc cd = new CompactDisc();
-//						order.addMedia(cd);
-//					}
-//					System.out.println("Do you want to play the cd/dvd?(y/n)");
-//					String answer;
-//					do {
-//						answer = scanner.nextLine();
-//						if (answer.equals("y")) {
-//							
-//						}
-//					} while(answer.toLowerCase() != "y" || answer.toLowerCase() != "n");
-//				}
-//				showMenu();
-//				break;
-//			}
-//			case 3: {
-//				if (!flag) {
-//					System.out.println("Please create a new order first!");
-//					break;
-//				}
-//				System.out.print("Enter title: ");
-//				String title = scanner.nextLine();
-//				if (order.searchMedia(title) != null) {
-//					order.removeMedia(order.searchMedia(title));
-//					System.out.println("Sucessfully deleted " + title);
-//				} else {
-//					System.out.println("Item not found!");
-//				}
-//				showMenu();
-//				break;
-//			}
-//			case 4: {
-//				if (!flag) {
-//					System.out.println("Please create a new order first!");
-//					break;
-//				}
-//				order.print();
-//				showMenu();
-//				break;
-//			}
-//			default:
-//				System.out.println("Invalid input! Please choose a number: 0-1-2-3-4");
-//				showMenu();
-//			}
-//		} while (c != 0);
-//		scanner.close();
-		
-		
+		Scanner scanner = new Scanner(System.in);
+		boolean flag = false;
+		Order order = new Order();
+		Order exOrder = createExampleOrder();
+		showMenu();
+		int c;
+		do {
+			c = scanner.nextInt();
+			scanner.nextLine();
+			switch (c) {
+			case 0: {
+				System.out.println("Good bye !!");
+				System.exit(1);
+				break;
+			}
+			case 1: {
+				System.out.println("Sucessfully created new order!");
+				flag = true;
+				break;
+			}
+			case 2: {
+				if (!flag) {
+					System.out.println("Please create a new order first!");
+					break;
+				}
+				int m = 0;
+				do {
+					System.out.println("Please choose media format:");
+					System.out.println("1. Book");
+					System.out.println("2. DVD");
+					System.out.println("3. CD");
+					m = scanner.nextInt();
+					scanner.nextLine();
+				} while (m < 1 || m > 3 );
+				System.out.println("Enter title: ");
+				String title = scanner.nextLine();
+				Media media = exOrder.searchMedia(title);
+				if (media != null) {
+					order.addMedia(media);
+				} else {
+					System.out.println("Error! Can not add + " + title);
+					break;
+				}
+				if (m == 2 || m == 3) {
+					System.out.println("Do you want to play the cd/dvd?(y/n)");
+					String answer;
+					while (true) {
+						answer = scanner.nextLine();
+						if (answer.equals("y") && m == 2) {
+							((DigitalVideoDisc)media).play();
+							break;
+						} else if (answer.equals("y") && m == 3) {
+							((CompactDisc)media).play();
+							break;
+						}	
+					}
+				}
+				showMenu();
+				break;
+			}
+			case 3: {
+				if (!flag) {
+					System.out.println("Please create a new order first!");
+					break;
+				}
+				System.out.print("Enter title: ");
+				String title = scanner.nextLine();
+				if (order.searchMedia(title) != null) {
+					order.removeMedia(order.searchMedia(title));
+					System.out.println("Sucessfully deleted " + title);
+				} else {
+					System.out.println("Item not found!");
+				}
+				showMenu();
+				break;
+			}
+			case 4: {
+				if (!flag) {
+					System.out.println("Please create a new order first!");
+					break;
+				}
+				order.print();
+				showMenu();
+				break;
+			}
+			default:
+				System.out.println("Invalid input! Please choose a number: 0-1-2-3-4");
+				showMenu();
+			}
+		} while (c != 0);
+		scanner.close();
 	}
 	
 }

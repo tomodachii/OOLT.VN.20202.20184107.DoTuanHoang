@@ -22,7 +22,10 @@ public class JavafxCounter extends Application {
 		tfCount.setEditable(false);
 		btnCount = new Button("Count");
 
-		btnCount.setOnAction(evt -> tfCount.setText(++count + ""));
+		btnCount.setOnAction(evt -> {
+			tfCount.setText(++count + "");
+			System.out.println(count);
+		});
 
 		FlowPane flow = new FlowPane();
 		flow.setPadding(new Insets(15, 12, 15, 12));
